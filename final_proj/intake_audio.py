@@ -19,7 +19,7 @@ import speech_recognition as sr
 
 
 
-mic = sr.Microphone(2) #mic index in parenthesis
+mic = sr.Microphone(1) #mic index in parenthesis
 def recognize_speech_from_mic(recognizer, microphone):
     """Transcribe speech from recorded from `microphone`.
 
