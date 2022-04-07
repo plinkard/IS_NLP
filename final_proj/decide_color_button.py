@@ -24,7 +24,7 @@ def __color_set__():
     if set==0: #waiting
         for x in range(17):
             for y in range(7):
-                uh.set_pixel(x, y, 255, 255, 0)
+                uh.set_pixel(x, y, 100, 100, 0)
                 uh.show()
     elif set==1: #neu
             for x in range(17):
@@ -57,45 +57,44 @@ button_b = Button(6)
 button_x = Button(16)
 button_y = Button(24)
 
-try:
-    button_a.when_pressed = pressed
-    button_b.when_pressed = pressed
-    button_x.when_pressed = pressed
-    button_y.when_pressed = pressed
-
-    pause()
-
-except KeyboardInterrupt:
-    button_a.close()
-    button_b.close()
-    button_x.close()
-    button_y.close()
-
 
 
 while running:
 
-    sentence=input('Please enter a sentence: ')
-    scored = analyzer.polarity_scores(sentence)['compound']
 
-    if scored >= 0.2:
-        set=2
-    elif scored<=-0.2:
-        set=3
-    else:
-        set=1
+    if go:
+        sentence=input('Please enter a sentence: ')
+        scored = analyzer.polarity_scores(sentence)['compound']
 
-    __color_set__()
-    time.sleep(7)
-    running = False
-    set = 4
+        if scored >= 0.2:
+            set=2
+            __color_set__()
+            time.sleep(7)
+            go = False
 
-while not running:
-    for x in range(17):
-        for y in range(7):
-            uh.set_pixel(x, y, 255, 255, 0)
-    uh.show()
-    time.sleep(0.25)
-    uh.clear()
-    uh.show()
-    time.sleep(0.25)
+        elif scored<=-0.2:
+            set=3
+            __color_set__()
+            time.sleep(7)
+            go = False
+
+        else:
+            set=1
+            __color_set__()
+            time.sleep(7)
+            go = False
+
+    swt=0
+    try:
+        button_a.when_pressed = pressed
+        button_b.when_pressed = pressed
+        button_x.when_pressed = pressed
+        button_y.when_pressed = pressed
+
+        pause()
+
+    except KeyboardInterrupt:
+        button_a.close()
+        button_b.close()
+        button_x.close()
+        button_y.close()
