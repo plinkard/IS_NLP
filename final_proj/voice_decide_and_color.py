@@ -52,8 +52,11 @@ def __color_set__():
                     uh.show()
 
 def __getAudio__():
+    global set
     with mic as source:
+        set=0
         r.adjust_for_ambient_noise(source)
+        __color_set__()
         audio=r.listen(source)
     return r.recognize_google(audio)
 
@@ -79,8 +82,6 @@ while running:
     set = 0
 
     if go:
-        set=0
-        __color_set__()
         sentence = __getAudio__()
         scored = analyzer.polarity_scores(sentence)['compound']
 
